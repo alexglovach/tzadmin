@@ -1,0 +1,57 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<style>
+
+</style>
+<body>
+<div class="container">
+<div class="col-md-4">
+    <h2>List of tables</h2>
+    <ul>
+        {% for list_item in list %}
+        <li><a href="?to_table={{ list_item }}">{{ list_item }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="col-md-8">
+    <h2>Custom query</h2>
+    <form action="/" method="post">
+        <textarea name="q"></textarea>
+        <input type="submit">
+    </form>
+    <hr>
+    <table class="result">
+        {{ result }}
+    </table>
+    <hr>
+    {% if currentTable != false %}
+    <h2>Table name: {{ currentTable }}</h2>
+
+    <br>
+    <br>
+    <table>
+        <tr>
+            {% for tableHeadItem in tableHead %}
+            <th><a href="?to_table={{ currentTable }}&sort_by={{ tableHeadItem }}&sort_type={{ sortType }}">{{ tableHeadItem }}</a></th>
+            {% endfor %}
+        </tr>
+        {% for tableContentRow in tableContent %}
+        <tr>
+            {% for tableContentRowItem in tableContentRow %}
+                <td>{{tableContentRowItem}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    {% endif %}
+
+</div>
+{{ greeting }}
+</div>
+<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
