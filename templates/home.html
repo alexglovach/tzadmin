@@ -31,6 +31,7 @@
 
     <br>
     <br>
+    {% endif %}
     <table>
         <tr>
             {% for tableHeadItem in tableHead %}
@@ -40,13 +41,13 @@
         {% for tableContentRow in tableContent %}
         <tr>
             {% for tableContentRowItem in tableContentRow %}
-                <td>{{tableContentRowItem}}</td>
+                <td>{{ tableContentRowItem }}</td>
             {% endfor %}
         </tr>
         {% endfor %}
     </table>
     <hr>
-    {% endif %}
+
 
 </div>
 {{ greeting }}

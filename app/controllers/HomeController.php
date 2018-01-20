@@ -18,12 +18,6 @@ class HomeController extends BaseController
         $this->template = 'home.html';
 
 
-        if (isset($this->body['q'])) {
-            $result = $this->body['q'];
-        } else {
-            $result = false;
-        }
-
         if(isset($queryParams['to_table']) && !isset($queryParams['sort_by'])){
             $tableName = $queryParams['to_table'];
             $listTableColoumns = $connect->listColoumNames($tableName);
@@ -32,6 +26,10 @@ class HomeController extends BaseController
             $tableName = $queryParams['to_table'];
             $listTableColoumns = $connect->listColoumNames($tableName);
             $tableContent = $connect->tableSortBy($tableName,$queryParams['sort_by'],$queryParams['sort_type']);
+        }else if(isset($this->body['q'])){
+            $tableName = false;
+            $listTableColoumns = false;
+            $tableContent = $connect->directQuery($this->body['q']);
         }else{
             $tableName = false;
             $listTableColoumns = false;
@@ -45,7 +43,6 @@ class HomeController extends BaseController
         return [
             'currentTable'=>$tableName,
             'list' => $listTables,
-            'result' => $result,
             'tableHead' => $listTableColoumns,
             'tableContent' => $tableContent,
             'sortType' => $sortType,
