@@ -6,7 +6,7 @@
 </style>
 <body>
 <div class="container">
-<div class="col-md-4">
+<div class="col-md-3">
     <h2>List of tables</h2>
     <ul>
         {% for list_item in list %}
@@ -15,16 +15,12 @@
     </ul>
 </div>
 
-<div class="col-md-8">
+<div class="col-md-9">
     <h2>Custom query</h2>
-    <form action="/" method="post">
-        <textarea name="q"></textarea>
-        <input type="submit">
+    <form action="/" method="post" style="width: 100%;">
+        <textarea style="width: 100%; margin-bottom: 15px;" name="q" class="form-control input-group"></textarea>
+        <input class="btn btn-primary" type="submit" value="Submit">
     </form>
-    <hr>
-    <table class="result">
-        {{ result }}
-    </table>
     <hr>
     {% if currentTable != false %}
     <h2>Table name: {{ currentTable }}</h2>
@@ -32,7 +28,7 @@
     <br>
     <br>
     {% endif %}
-    <table>
+    <table class="table table-bordered">
         <tr>
             {% for tableHeadItem in tableHead %}
             <th><a href="?to_table={{ currentTable }}&sort_by={{ tableHeadItem }}&sort_type={{ sortType }}">{{ tableHeadItem }}</a></th>

@@ -5,7 +5,7 @@ namespace App\Models;
 use PDO;
 
 class HomeModel extends BaseModel
-{   private $limit = 10;
+{   private $limit = 1000;
     public function listTablesItems()
     {
         return $this->connect()->query("show tables")->fetchAll(PDO::FETCH_COLUMN);
