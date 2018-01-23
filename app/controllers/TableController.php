@@ -2,20 +2,31 @@
 
 
 namespace App\Controllers;
-use App\Models\HomeModel;
+use App\Models\TableModel;
 
 
-class HomeController extends BaseController
+class TableController extends BaseController
 {
-    public function home()
-    {
-        $connect = new HomeModel();
-        $listTables = $connect->listTablesItems();
+    public function allTables() {
+        $this->template = 'table.html';
+        $this->getTablesList();
 
+    }
+
+    public function getData($table)
+    {
+        $this->template = 'table.html';
+
+        // Sort
         $this->body = $this->request->getParsedBody();
         $queryParams = $this->request->getQueryParams();
 
-        $this->template = 'home.html';
+
+
+        $connect = new TableModel();
+        $listTables = $this->listTablesItems();
+
+
 
 
         if(isset($queryParams['to_table']) && !isset($queryParams['sort_by'])){
@@ -47,5 +58,9 @@ class HomeController extends BaseController
             'tableContent' => $tableContent,
             'sortType' => $sortType,
         ];
+    }
+
+    private function getTablesList() {
+        return $this->tablesListModel->getList();
     }
 }

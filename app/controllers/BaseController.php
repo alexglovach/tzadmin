@@ -7,6 +7,12 @@ namespace App\Controllers;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * @property \App\Models\TableModel tableModel
+ * @property \App\Models\TablesListModel tablesListModel
+ * @property \App\Models\QueryModel queryModel
+ */
+
 class BaseController
 {
     private $container;

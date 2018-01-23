@@ -1,4 +1,5 @@
 <?php return [
-    ['GET', '/', \App\Controllers\HomeController::class, 'home'],
-    ['POST', '/', \App\Controllers\HomeController::class, 'home'],
+    ['GET', '/', \App\Controllers\TableController::class, 'allTables'],
+    ['GET', '/table/{name:\s+}', \App\Controllers\TableController::class, 'getData'],
+    ['POST', '/query', \App\Controllers\QueryController::class, 'query'],
 ];

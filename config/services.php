@@ -4,15 +4,16 @@
         return $db;
     },
 
-    'queue' => function ($env) {
-        $connection = new \AMQPConnection($env['rabbitmq']);
-        $connection->connect();
-        $channel = new \AMQPChannel($connection);
-        return new \App\Helpers\Queue($channel);
+    'tableModel' => function ($env, $container) {
+        return new \App\Models\TableModel();
     },
 
-    'ListTablesModel' => function ($env, $container) {
-        $db = $container->get('mysql');
-        return new \App\Models\ListTablesModel($db);
-    }
+    'tablesListModel' => function ($env, $container) {
+        return new \App\Models\TableModel();
+    },
+
+
+    'queryModel' => function ($env, $container) {
+        return new \App\Models\TableModel();
+    },
 ];
