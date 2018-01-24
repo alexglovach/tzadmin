@@ -1,0 +1,19 @@
+<div class="col-md-9">
+    <h2>Table name: {{ currentTable }}</h2>
+    <br>
+    <table class="table table-bordered">
+        <tr>
+            {% for tableHeadItem in tableHead %}
+            <th><a href="?sort_by={{ tableHeadItem }}&sort_type={{ sortType }}">{{ tableHeadItem }}</a></th>
+            {% endfor %}
+        </tr>
+        {% for tableContentRow in tableContent %}
+        <tr>
+            {% for tableContentRowItem in tableContentRow %}
+            <td>{{ tableContentRowItem }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+</div>

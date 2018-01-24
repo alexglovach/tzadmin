@@ -19,7 +19,10 @@ foreach ($services as $service => $val) {
 $request = \GuzzleHttp\Psr7\ServerRequest::fromGlobals();
 
 // router (controller)
-$dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) use ($routes) {
+$dispatcher = FastRoute\simpleDispatcher(/**
+ * @param \FastRoute\RouteCollector $r
+ */
+    function (FastRoute\RouteCollector $r) use ($routes) {
     foreach ($routes as $route) {
         $r->addRoute($route[0], $route[1], [$route[2], $route[3]]);
     }

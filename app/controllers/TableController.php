@@ -4,56 +4,36 @@
 namespace App\Controllers;
 
 use App\Models\TablesListModel;
+use App\Models\TableModel;
 
 
 class TableController extends BaseController
 {
     public function allTables() {
         $this->template = 'allTables.html';
-
-        $listTables = $this->tablesListModel->getList();
-        var_dump($listTables);
-
+        $listTables = new TablesListModel();
         return [
-            //'currentTable'=>$tableName,
-            'list' => $listTables,
-            //'tableHead' => $listTableColoumns,
-            //'tableContent' => $tableContent,
-            //'sortType' => $sortType,
+            'list' => $listTables->getList(),
         ];
     }
 
-    public function getData($table)
+    public function getData()
     {
-        $this->template = 'table.html';
-
         $this->body = $this->request->getParsedBody();
         $queryParams = $this->request->getQueryParams();
-
-
-
+        $tableName = str_replace('/table/','',$_SERVER['REQUEST_URI']);
         $connect = new TableModel();
-        $listTables = $this->listTablesItems();
-
-
-
-
-        if(isset($queryParams['to_table']) && !isset($queryParams['sort_by'])){
-            $tableName = $queryParams['to_table'];
+        $listTables = $this->allTables()['list'];
+        //var_dump('<pre>',$_SERVER);
+        if(!isset($queryParams['sort_by'])){
             $listTableColoumns = $connect->listColoumNames($tableName);
             $tableContent = $connect->tableContent($tableName);
-        }else if(isset($queryParams['sort_by'])){
-            $tableName = $queryParams['to_table'];
+        }else{
+
+            preg_match('/(.*)\?/',$tableName,$tableName);
+            $tableName = $tableName[1];
             $listTableColoumns = $connect->listColoumNames($tableName);
             $tableContent = $connect->tableSortBy($tableName,$queryParams['sort_by'],$queryParams['sort_type']);
-        }else if(isset($this->body['q'])){
-            $tableName = false;
-            $listTableColoumns = false;
-            $tableContent = $connect->directQuery($this->body['q']);
-        }else{
-            $tableName = false;
-            $listTableColoumns = false;
-            $tableContent = false;
         }
         if(isset($queryParams['sort_type']) && $queryParams['sort_type'] == 'DESC'){
             $sortType = 'ASC';
@@ -61,7 +41,7 @@ class TableController extends BaseController
             $sortType = 'DESC';
         }
         return [
-            'currentTable'=>$tableName,
+            'currentTable' => $tableName,
             'list' => $listTables,
             'tableHead' => $listTableColoumns,
             'tableContent' => $tableContent,

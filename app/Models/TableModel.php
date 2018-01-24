@@ -6,7 +6,7 @@ namespace App\Models;
 use PDO;
 
 class TableModel extends BaseModel
-{
+{   private $limit = 1000;
     public function listColoumNames($table)
     {
         return $this->connect()->query("SHOW COLUMNS FROM $table")->fetchAll(PDO::FETCH_COLUMN);
