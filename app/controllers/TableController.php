@@ -2,22 +2,31 @@
 
 
 namespace App\Controllers;
-use App\Models\TableModel;
+
+use App\Models\TablesListModel;
 
 
 class TableController extends BaseController
 {
     public function allTables() {
-        $this->template = 'table.html';
-        $this->getTablesList();
+        $this->template = 'allTables.html';
 
+        $listTables = $this->tablesListModel->getList();
+        var_dump($listTables);
+
+        return [
+            //'currentTable'=>$tableName,
+            'list' => $listTables,
+            //'tableHead' => $listTableColoumns,
+            //'tableContent' => $tableContent,
+            //'sortType' => $sortType,
+        ];
     }
 
     public function getData($table)
     {
         $this->template = 'table.html';
 
-        // Sort
         $this->body = $this->request->getParsedBody();
         $queryParams = $this->request->getQueryParams();
 
