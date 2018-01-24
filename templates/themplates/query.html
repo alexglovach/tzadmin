@@ -5,25 +5,22 @@
         <input class="btn btn-primary" type="submit" value="Submit">
     </form>
     <hr>
-    {% if currentTable != false %}
-    <h2>Table name: {{ currentTable }}</h2>
-
-    <br>
-    <br>
-    {% endif %}
+    {% if queryContent %}
     <table class="table table-bordered">
         <tr>
-            {% for tableHeadItem in tableHead %}
-            <th><a href="?to_table={{ currentTable }}&sort_by={{ tableHeadItem }}&sort_type={{ sortType }}">{{ tableHeadItem }}</a></th>
+            {% for key,item in queryContent[0] %}
+            <th>{{ key }}</th>
             {% endfor %}
         </tr>
-        {% for tableContentRow in tableContent %}
+        {% for queryContentRow in queryContent %}
         <tr>
-            {% for tableContentRowItem in tableContentRow %}
-            <td>{{ tableContentRowItem }}</td>
+            {% for queryContentRowItem in queryContentRow %}
+            <td>{{ queryContentRowItem }}</td>
             {% endfor %}
         </tr>
         {% endfor %}
     </table>
-<hr>
+    <hr>
+    {% endif %}
+
 </div>

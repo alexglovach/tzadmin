@@ -1,10 +1,12 @@
 <div class="col-md-9">
+
     <h2>Table name: {{ currentTable }}</h2>
     <br>
+    {% if tableContent %}
     <table class="table table-bordered">
         <tr>
-            {% for tableHeadItem in tableHead %}
-            <th><a href="?sort_by={{ tableHeadItem }}&sort_type={{ sortType }}">{{ tableHeadItem }}</a></th>
+            {% for key,item in tableContent[0] %}
+            <th><a href="?sort_by={{ key }}&sort_type={{ sortType }}">{{ key }}</a></th>
             {% endfor %}
         </tr>
         {% for tableContentRow in tableContent %}
@@ -15,5 +17,8 @@
         </tr>
         {% endfor %}
     </table>
+    {% else %}
+        <h4>Rows not found in {{ currentTable }}</h4>
+    {% endif %}
     <hr>
 </div>
