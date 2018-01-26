@@ -33,22 +33,17 @@ if ($routeInfo[0] !== FastRoute\Dispatcher::FOUND) {
     die;
 }
 
-
 // controller (result[])
-$instance = new $routeInfo[1][0]($container, $request);
-$result = call_user_func_array([$instance, $routeInfo[1][1]], []);
-
+$controller = new $routeInfo[1][0]($container, $request);
+$result = call_user_func_array([$controller, $routeInfo[1][1]],$routeInfo[2]);
 
 // template
 $loader = new Twig_Loader_Filesystem(APP_DIR . 'templates');
 $twig = new Twig_Environment($loader);
-$html = $twig->load($instance->template)->render($result);
+$html = $twig->load($controller->template)->render($result);
 
 // Response
 $response = new \GuzzleHttp\Psr7\Response(200, [], $html);
-
-$response = $response->withAddedHeader('X-data', 'manata');
-
 
 // ----------
 // Sending response

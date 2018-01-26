@@ -8,7 +8,7 @@ class QueryModel extends BaseModel
 {
     public function query($sql)
     {
-        return $this->connect()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->connection->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

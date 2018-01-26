@@ -6,14 +6,12 @@ namespace App\Models;
 use PDO;
 
 class TableModel extends BaseModel
-{   private $limit = 1000;
-    public function tableContent($table)
-    {
-        return $this->connect()->query("SELECT * FROM $table LIMIT $this->limit")->fetchAll(PDO::FETCH_ASSOC);
-    }
+{
+    private $limit = 1000;
 
-    public function tableSortBy($table, $sortBy, $sortType = 'DESC')
+    public function tableContent($table, $sortBy, $sortType)
     {
-        return $this->connect()->query("SELECT * FROM $table ORDER BY $sortBy $sortType LIMIT $this->limit")->fetchAll(PDO::FETCH_ASSOC);
+        return $this->connection->query("SELECT * FROM $table ORDER BY $sortBy $sortType LIMIT $this->limit")
+            ->fetchAll(PDO::FETCH_ASSOC);
     }
 }

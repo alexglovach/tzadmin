@@ -1,19 +1,15 @@
 <?php return [
-    'mysql' => function ($env) {
-        $db = new \App\Models\BaseModel($env['mysql']);
-        return $db;
-    },
-
     'tableModel' => function ($env, $container) {
-        return new \App\Models\TableModel();
+        return new \App\Models\TableModel($env['mysql']);
     },
 
     'tablesListModel' => function ($env, $container) {
-        return new \App\Models\TableModel();
+        return new \App\Models\TablesListModel($env['mysql']);
     },
 
 
     'queryModel' => function ($env, $container) {
-        return new \App\Models\TableModel();
+
+        return new \App\Models\QueryModel($env['mysql']);
     },
 ];

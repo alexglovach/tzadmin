@@ -2,6 +2,7 @@
 
 
 namespace App\Models;
+
 use PDO;
 
 /**
@@ -9,23 +10,23 @@ use PDO;
  */
 class BaseModel
 {
-    public function connect()
-    {
-//        $this->connection = new PDO($config["driver"].':host='.$config["host"].';dbname='.$config["database"],
-//            $config["username"],
-//            $config["password"]);
+    protected $connection;
 
-        $dbc = new PDO('mysql:host=localhost;dbname=test_vk_parser',
-            'root',
-            'root');
-        return $dbc;
+    public function __construct($config)
+    {
+        $this->connection = new PDO($config["driver"].':host='.$config["host"].';dbname='.$config["database"],
+            $config["username"],
+            $config["password"]);
+
     }
+
     public function table($table)
     {
-        return $this->dbc->table($table);
+        return $this->connection->table($table);
     }
+
     public function query($query)
     {
-        return $this->dbc->query($query);
+        return $this->connection->query($query);
     }
 }
