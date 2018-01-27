@@ -3,6 +3,23 @@
     <h2>Table name: {{ currentTable }}</h2>
     <br>
     {% if tableContent %}
+
+
+    {% if currentPage == 1%}
+    <span>Its first page</span>
+    {% else %}
+    <span>Current page {{currentPage}}</span>
+    {% endif %}
+    <br>
+    <br>
+    {% if previosLink %}
+    <a href="{{previosLink}}" class="btn btn-default">Previos Page</a>
+    {% endif %}
+    {% if nextLink %}
+    <a href="{{nextLink}}" class="btn btn-default">Next Page</a>
+    {% endif %}
+    <br>
+    <br>
     <table class="table table-bordered">
         <tr>
             {% for key,item in tableContent[0] %}

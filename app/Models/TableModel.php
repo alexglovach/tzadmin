@@ -7,11 +7,20 @@ use PDO;
 
 class TableModel extends BaseModel
 {
-    private $limit = 1000;
+    public $limit = 100;
 
-    public function tableContent($table, $sortBy, $sortType)
+    public function tableContent($table, $sortBy, $sortType, $page)
     {
-        return $this->connection->query("SELECT * FROM $table ORDER BY $sortBy $sortType LIMIT $this->limit")
+        $this->offset = ($page-1) * $this->limit;
+
+        $result = $this->connection->query("SELECT * FROM $table ORDER BY $sortBy $sortType LIMIT $this->limit OFFSET $this->offset")
             ->fetchAll(PDO::FETCH_ASSOC);
+
+        if(count($result) < $this->limit){
+           return [$result,true];
+        }else{
+            return [$result,false];
+        }
+
     }
 }
