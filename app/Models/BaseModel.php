@@ -2,22 +2,14 @@
 
 
 namespace App\Models;
-
 use PDO;
-
-/**
- * @property \App\Database connection
- */
 class BaseModel
 {
     protected $connection;
 
-    public function __construct($config)
+    public function __construct($container)
     {
-        $this->connection = new PDO($config["driver"].':host='.$config["host"].';dbname='.$config["database"],
-            $config["username"],
-            $config["password"]);
-
+        $this->connection = $container->get('mysql');
     }
 
     public function table($table)

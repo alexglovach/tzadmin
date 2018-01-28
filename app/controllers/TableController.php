@@ -8,6 +8,10 @@ class TableController extends BaseController
     public function allTables()
     {
         $this->template = 'allTables.html';
+        $list = $this->tablesListModel->getList();
+        if(!count($list)){
+            $list[0] = "Database have no table";
+        }
         return [
             'list' => $this->tablesListModel->getList()
         ];

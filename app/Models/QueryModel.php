@@ -2,13 +2,15 @@
 
 
 namespace App\Models;
-
+use PDO;
 
 class QueryModel extends BaseModel
 {
-    public function query($sql)
+    public function query($query)
     {
-        return $this->connection->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
-    }
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
 
 }
